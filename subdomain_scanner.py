@@ -366,16 +366,9 @@ class SubdomainScanner:
         print("[*] Executando Virus Total...")
 
         api_keys = [
-            "740638ddcb5aaa5160d6bc6869f632fc27b5557183a7878b8e2b27e233b2bb3e",
-            "7e4342052960274efaa45bb4b09465fd1509b0927caaa79b073d2a344c2f07cb",
-            "84facbc7613f399533c424b61e8a85feac0429f825f95198f7def7b392fdcd73",
-            "8b535c06de0251216d61b83e6a613d80cd960eb91fd2420f2030c44226e20940",
-            "791c77c72e15c8dec9b40029b23365e83944815e7bfb0f5706ce74a2c47279f8",
-            "5be32688edfbf528dd2a8718c2e0c3281006addacd01730789d98277bc46c778",
-            "eabcf5d076bbb5bf4a3301f2305f1c3a191a643356c8f26ed1bc2fc9aa0677b7",
-            "6c53201635869dd04790d38f76249c44f9aba58ab86adf0956013d191adc349f",
-            "00c7632fe2e07c698ecd65042d37b483961521cda4cd08138e73bafad6c8de43",
-            "791c77c72e15c8dec9b40029b23365e83944815e7bfb0f5706ce74a2c47279f8",
+            SUAS CHAVES APIS DO VIRUSTOTAL,
+            SUAS CHAVES APIS DO VIRUSTOTAL,
+            SUAS CHAVES APIS DO VIRUSTOTAL
         ]
 
         cursor = ""
@@ -793,7 +786,6 @@ def main():
         threads=args.threads,
         timeout=args.timeout,
         use_external_tools=not args.no_tools,
-        vt_api_key="6c53201635869dd04790d38f76249c44f9aba58ab86adf0956013d191adc349f"
     )
     scanner.output_dir = args.output
 
