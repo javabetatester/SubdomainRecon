@@ -363,64 +363,45 @@ class SubdomainScanner:
             print(f"[!] Erro ao executar Subfinder: {e}")
 
     def run_virustotal(self):
-        print("[*] Executando VirusTotal...")
+        print("[*] Executando Virus Total...")
+
         api_keys = [
-            SUAS CHAVES AQUI, KEYS, KEYS, KEYS DO VIRUSTOTAL <=====, KEYS
+            #SUA CHAVE DE API AQUI
         ]
+
         cursor = ""
         domains = []
-        limit = 40
-
-        while not self._stop_event:
-            api_key = random.choice(api_keys)
+        for i in range(1000000):
+            if self._stop_event:
+                break
+                
+            id_key = random.randrange(0, len(api_keys)-1)
+            api_key = api_keys[id_key]
             headers = {
                 'accept': 'application/json',
                 'x-apikey': api_key
             }
-            url = (
-                f"https://www.virustotal.com/api/v3/domains/"
-                f"{self.target_domain}/subdomains?limit={limit}"
-                + (f"&cursor={cursor}" if cursor else "")
-            )
-            try:
-                resp = requests.get(url, headers=headers, timeout=self.timeout)
-            except Exception as e:
-                print(f"[!] Erro na requisição VirusTotal: {e}")
-                break
+            url = f"https://www.virustotal.com/api/v3/domains/{self.target_domain}/subdomains?limit=40&cursor={cursor}"
 
-            if resp.status_code != 200:
-                print(f"[!] VT retornou HTTP {resp.status_code}, interrompendo.")
-                break
+            response = requests.request("GET", url, headers=headers)
+            data = dict(response.json())
+            cursor = data['meta']['cursor']
+            print(cursor, len(domains), data['meta']['count'])
 
-            data = resp.json()
-            page = data.get("data", [])
-            new_cursor = data.get("meta", {}).get("cursor")
-
-            # Se não vier nenhum subdomínio, acabaram as páginas
-            if not page:
-                break
-
-            # Processa cada entrada
-            for entry in page:
-                sub = entry.get("id")
-                if sub and sub.endswith(self.target_domain) and sub != self.target_domain:
-                    try:
-                        ip = socket.gethostbyname(sub)
-                    except socket.gaierror:
-                        ip = "N/A"
-                    self.subdomains.add((sub, "VirusTotal", ip))
-                    self.ip_addresses.add(ip)
-                    domains.append(sub)
-
-            # Se não houver mais cursor ou ele não mudou, fim da paginação
-            if not new_cursor or new_cursor == cursor:
-                break
-
-            cursor = new_cursor
+            domains = domains + [domain["id"] for domain in data["data"]]
             sleep(2)
-
+            
+            # Adiciona os subdomínios encontrados
+            for subdomain in domains:
+                if subdomain and subdomain.endswith(self.target_domain) and subdomain != self.target_domain:
+                    try:
+                        ip = socket.gethostbyname(subdomain)
+                        self.subdomains.add((subdomain, 'VirusTotal', ip))
+                        self.ip_addresses.add(ip)
+                    except socket.gaierror:
+                        self.subdomains.add((subdomain, 'VirusTotal', 'N/A'))
+                        
         return domains
-
 
     def run_amass(self):
         if self._stop_event:
@@ -771,7 +752,7 @@ class SubdomainScanner:
 
 def main():
     import socket, concurrent.futures
-    DEF_PORTS = (443, 80)  
+    DEF_PORTS = (443, 80, 8888, 8080)  
     def tcp_probe(host: str,
                   ports: tuple = DEF_PORTS,
                   timeout: float = 2.0) -> bool:
