@@ -365,10 +365,7 @@ class SubdomainScanner:
     def run_virustotal(self):
         print("[*] Executando VirusTotal...")
         api_keys = [
-            "740638ddcb5aaa5160d6bc6869f632fc27b5557183a7878b8e2b27e233b2bb3e",
-            "7e4342052960274efaa45bb4b09465fd1509b0927caaa79b073d2a344c2f07cb",
-            "84facbc7613f399533c424b61e8a85feac0429f825f95198f7def7b392fdcd73",
-            # ... demais chaves ...
+            SUAS CHAVES AQUI, KEYS, KEYS, KEYS DO VIRUSTOTAL <=====, KEYS
         ]
         cursor = ""
         domains = []
@@ -807,7 +804,6 @@ def main():
         threads=args.threads,
         timeout=args.timeout,
         use_external_tools=not args.no_tools,
-        vt_api_key="6c53201635869dd04790d38f76249c44f9aba58ab86adf0956013d191adc349f"
     )
     scanner.output_dir = args.output
 
