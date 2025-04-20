@@ -60,6 +60,9 @@ Uma ferramenta de descoberta e validação de subdomínios para um domínio-alvo
    ```
 3. (Opcional) Instale as ferramentas externas e garanta que estejam no seu `PATH`.
 
+
+4. Lembre-se de adcionar suas chaves de API do Virus Total, caso contrário você deixrá de coletar diversos sub-domínios.
+
 ---
 
 ## Uso
