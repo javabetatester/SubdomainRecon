@@ -156,7 +156,7 @@ class SubdomainScanner:
             context.check_hostname = False
             context.verify_mode = ssl.CERT_NONE
             
-            with socket.create_connection((domain, 443), timeout=self.timeout) as sock:
+            with socket.create_connection((domain, 443, 80, 8888, 8080), timeout=self.timeout) as sock:
                 with context.wrap_socket(sock, server_hostname=domain) as ssock:
                     cert_bin = ssock.getpeercert(True)
                     x509 = crypto.load_certificate(crypto.FILETYPE_ASN1, cert_bin)
