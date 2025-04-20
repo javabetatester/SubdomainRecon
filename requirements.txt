@@ -1,0 +1,5 @@
+requests
+dnspython
+beautifulsoup4
+tqdm
+pyOpenSSL
