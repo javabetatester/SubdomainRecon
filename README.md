@@ -24,7 +24,7 @@ Uma ferramenta de descoberta e validação de subdomínios para um domínio-alvo
   - VirusTotal API (paginação)
 
 - **Bruteforce** via wordlist customizável
-- **Validação de portas TCP** (padrão: 80, 443)
+- **Validação de portas TCP** (padrão: 80, 443, 8080, 8888)
 - **Configurações**:
   - Timeout de requisições
   - Wordlist customizada
